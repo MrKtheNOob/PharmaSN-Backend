@@ -2,6 +2,7 @@ package com.example.pharmasn.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,16 +16,10 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Pharmacien extends User {
-
-    @Column(length = 100, unique = true)
-    private String numeroLicence;
-
+    
+    @Column
+    private Long numeroLicence;
+    
     @Column(length = 150)
     private String nomPharmacie;
-
-    // @PrePersist
-    // @PreUpdate
-    // public void ensureRole() {
-    //     assignRole(Role.PHARMACIEN);
-    // }
 }

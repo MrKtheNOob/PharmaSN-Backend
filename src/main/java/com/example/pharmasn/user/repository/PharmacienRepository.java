@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface PharmacienRepository extends JpaRepository<Pharmacien, Long> {
     Optional<Pharmacien> findByNumeroLicence(String numeroLicence);
-    boolean existsByNumeroLicence(String numeroLicence);
+    boolean existsByNumeroLicence(Long numeroLicence);
 }

@@ -30,31 +30,20 @@ public abstract class User{
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
-    @Setter(AccessLevel.NONE)
-    private Role role;
-
     @Column(nullable = false, updatable = false)
-    @Setter(AccessLevel.NONE)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    @Setter(AccessLevel.NONE)
     private LocalDateTime updatedAt;
 
-    protected void assignRole(Role role) {
-        this.role = role;
-    }
-
     @PrePersist
-    public void onCreate() {
+    private void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void onUpdate() {
+    private void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 }
