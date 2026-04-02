@@ -16,10 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Pharmacien extends User {
-    
     @Column
     private Long numeroLicence;
-    
-    @Column(length = 150)
-    private String nomPharmacie;
 }

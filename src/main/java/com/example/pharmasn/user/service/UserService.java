@@ -95,31 +95,31 @@ public class UserService implements IUserService {
         return adminRepository.save(existingAdmin);
     }
 
-    @Override
-    public Pharmacien updatePharmacien(Long id, Pharmacien updatedPharmacien) {
-        Pharmacien existingPharmacien = pharmacienRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Pharmacien not found with id: " + id));
+    // @Override
+    // public Pharmacien updatePharmacien(Long id, Pharmacien updatedPharmacien) {
+    //     Pharmacien existingPharmacien = pharmacienRepository.findById(id)
+    //             .orElseThrow(() -> new EntityNotFoundException("Pharmacien not found with id: " + id));
 
-        if (!existingPharmacien.getEmail().equals(updatedPharmacien.getEmail())
-                && userRepository.existsByEmail(updatedPharmacien.getEmail())) {
-            throw new IllegalArgumentException("Email already used");
-        }
+    //     if (!existingPharmacien.getEmail().equals(updatedPharmacien.getEmail())
+    //             && userRepository.existsByEmail(updatedPharmacien.getEmail())) {
+    //         throw new IllegalArgumentException("Email already used");
+    //     }
 
-        if (updatedPharmacien.getNumeroLicence() != null
-                && !updatedPharmacien.getNumeroLicence().equals(existingPharmacien.getNumeroLicence())
-                && pharmacienRepository.existsByNumeroLicence(updatedPharmacien.getNumeroLicence())) {
-            throw new IllegalArgumentException("Licence number already used");
-        }
+    //     if (updatedPharmacien.getNumeroLicence() != null
+    //             && !updatedPharmacien.getNumeroLicence().equals(existingPharmacien.getNumeroLicence())
+    //             && pharmacienRepository.existsByNumeroLicence(updatedPharmacien.getNumeroLicence())) {
+    //         throw new IllegalArgumentException("Licence number already used");
+    //     }
 
-        existingPharmacien.setNom(updatedPharmacien.getNom());
-        existingPharmacien.setPrenom(updatedPharmacien.getPrenom());
-        existingPharmacien.setEmail(updatedPharmacien.getEmail());
-        existingPharmacien.setPassword(updatedPharmacien.getPassword());
-        existingPharmacien.setNumeroLicence(updatedPharmacien.getNumeroLicence());
-        existingPharmacien.setNomPharmacie(updatedPharmacien.getNomPharmacie());
+    //     existingPharmacien.setNom(updatedPharmacien.getNom());
+    //     existingPharmacien.setPrenom(updatedPharmacien.getPrenom());
+    //     existingPharmacien.setEmail(updatedPharmacien.getEmail());
+    //     existingPharmacien.setPassword(updatedPharmacien.getPassword());
+    //     existingPharmacien.setNumeroLicence(updatedPharmacien.getNumeroLicence());
+    //     existingPharmacien.setNomPharmacie(updatedPharmacien.getNom());
 
-        return pharmacienRepository.save(existingPharmacien);
-    }
+    //     return pharmacienRepository.save(existingPharmacien);
+    // }
 
     @Override
     public void deleteUser(Long id) {
