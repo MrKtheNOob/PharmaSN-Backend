@@ -1,7 +1,6 @@
 package com.example.pharmasn.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
@@ -21,14 +20,14 @@ public abstract class User{
     @Column(nullable = false, length = 100)
     private String nom;
 
-    @Column(nullable = false, length = 100)
-    private String prenom;
+    // @Column(nullable = false, length = 100)
+    // private String prenom;
 
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
+    // @Column(nullable = false)
+    // private String password;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
