@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/stock")
+@RequestMapping("/api/stock")
 @AllArgsConstructor
 public class StockController {
     private final StockService stockService;

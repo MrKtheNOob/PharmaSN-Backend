@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +42,7 @@ public class Stock {
         this.updatedAt = LocalDateTime.now();
     }
     
-    @PrePersist
+    @PreUpdate
     private void onUpdate() {
         this.updatedAt = LocalDateTime.now(); 
     }  

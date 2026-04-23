@@ -26,23 +26,23 @@ public abstract class User{
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    // @Column(nullable = false)
-    // private String password;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private String password;
 
-    @PrePersist
-    private void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
+    // @Column(nullable = false, updatable = false)
+    // private LocalDateTime createdAt;
 
-    @PreUpdate
-    private void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
+    // @Column(nullable = false)
+    // private LocalDateTime updatedAt;
+
+    // @PrePersist
+    // private void onCreate() {
+    //     this.createdAt = LocalDateTime.now();
+    //     this.updatedAt = LocalDateTime.now();
+    // }
+
+    // @PreUpdate
+    // private void onUpdate() {
+    //     this.updatedAt = LocalDateTime.now();
+    // }
 }

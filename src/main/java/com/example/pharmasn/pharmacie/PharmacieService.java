@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class PharmacieService{
     private final PharmacieRepository pharmacieRepository;
 
-    public PharmacieService(PharmacieRepository pharmacieRepository) {
-        this.pharmacieRepository = pharmacieRepository;
-    }
+    
 
     public List<Pharmacie> getAllPharmacies(){
         return pharmacieRepository.findAll();
@@ -18,7 +19,8 @@ public class PharmacieService{
     
     
     public Pharmacie getPharmacieById(Long id){
-        return pharmacieRepository.findById(id).orElse(null);
+        return pharmacieRepository.findById(id)
+            .orElseThrow(() -> new PharmacieNotFoundException("Pharmacie with id " + id + " not found"));
     }
     public Pharmacie createPharmacie(Pharmacie pharmacie){
         return pharmacieRepository.save(pharmacie);

@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 
 
 @RestController
-@RequestMapping("/pharmaciens")
+@RequestMapping("/api/pharmaciens")
 @AllArgsConstructor
 public class PharmacienController {
     private final PharmacienRepository pharmacienRepository;
