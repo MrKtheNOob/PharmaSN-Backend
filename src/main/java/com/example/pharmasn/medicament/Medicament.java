@@ -21,8 +21,14 @@ public class Medicament {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true)
-    private String name;
+    @Column(nullable = false, unique = true)
+    private String name; // Nom commercial
+
+    @Column(nullable = false)
+    private String activePrinciple; // Principe actif
+
+    @Column(unique = true)
+    private String cipCode; // Code CIP
 
     @Column(nullable = false, updatable = false)
     @Setter(AccessLevel.NONE)
@@ -43,5 +49,3 @@ public class Medicament {
         this.updatedAt = LocalDateTime.now();
     }
 }
-
-

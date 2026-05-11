@@ -1,50 +1,28 @@
 package com.example.pharmasn.medicament;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/medicaments")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MedicamentController {
+
     private final MedicamentService medicamentService;
 
-    @GetMapping("/")
-    public List<Medicament> getAllMedicaments(){
+    @GetMapping
+    public List<Medicament> getAllMedicaments() {
         return medicamentService.getAllMedicaments();
     }
-    @GetMapping("/{id}")
-    public Medicament getMedicamentById(@PathVariable Long id){
-        return medicamentService.getMedicamentById(id);    
-    }
-    @GetMapping("/search/{name}")
-    public List<Medicament> getMedicamentByName(@PathVariable String name){
-        return medicamentService.getMedicamentByName(name);
-    }
-    @PostMapping
-    public Medicament createMedicament(@RequestBody Medicament medicament){
-        return medicamentService.createMedicament(medicament);
-    }
 
-    @PutMapping("/{id}")
-    public Medicament updateMedicament(@PathVariable Long id, @RequestBody Medicament medicament){
-        medicament.setId(id);
-        return medicamentService.updateMedicament(medicament);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteMedicament(@PathVariable Long id){
-        medicamentService.deleteMedicament(id);
+    @GetMapping("/search")
+    public List<Medicament> searchMedicaments(@RequestParam String query) {
+        // We'll add this to service next
+        return medicamentService.searchMedicaments(query);
     }
 }

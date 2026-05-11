@@ -1,50 +1,53 @@
 package com.example.pharmasn.stock;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.pharmasn.stock.dtos.StockRequestDTO;
+import com.example.pharmasn.stock.dtos.StockResponseDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/stock")
-@AllArgsConstructor
+@RequestMapping("/api/stocks")
+@RequiredArgsConstructor
 public class StockController {
+
     private final StockService stockService;
 
     @GetMapping
-    public java.util.List<Stock> getAllStocks() {
-        return stockService.getAllStocks();
+    public List<StockResponseDTO> getAll() {
+        return stockService.getAllAvailable();
     }
 
-    @GetMapping("/{medicamentId}")
-    public java.util.Optional<Stock> getStockByMedicamentId(@PathVariable Long medicamentId) {
-        return stockService.getStockByMedicamentId(medicamentId);  
+    @GetMapping("/search")
+    public List<StockResponseDTO> search(@RequestParam String name) {
+        return stockService.searchStocks(name);
     }
 
-    @PostMapping("/{medicamentId}/{quantity}")
-    public void addStock(@PathVariable Long medicamentId, @PathVariable Integer quantity) {
-        stockService.addStock(medicamentId, quantity);
+    @GetMapping("/my-inventory")
+    public List<StockResponseDTO> getMyInventory(Authentication authentication) {
+        return stockService.getStocksByPharmacistEmail(authentication.getName());
     }
 
-    @PostMapping("/")
-    public Stock createStock(Stock stock) {
-        return stockService.createStock(stock);
+    @PostMapping
+    public ResponseEntity<Stock> createStock(@RequestBody StockRequestDTO dto, Authentication authentication) {
+        return ResponseEntity.ok(stockService.createStock(dto, authentication.getName()));
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Stock> updateStock(
+            @PathVariable Long id,
+            @RequestParam(required = false) Integer quantity,
+            @RequestParam(required = false) Double price,
+            Authentication authentication) {
+        return ResponseEntity.ok(stockService.updateStock(id, quantity, price, authentication.getName()));
+    }
+
     @DeleteMapping("/{id}")
-    public void deleteStock(@PathVariable Long id) {
-        stockService.deleteStock(id);
+    public ResponseEntity<Void> deleteStock(@PathVariable Long id, Authentication authentication) {
+        stockService.deleteStock(id, authentication.getName());
+        return ResponseEntity.ok().build();
     }
-
-    @PutMapping("/{id}")
-    public Stock updateStock(@PathVariable Long id, @RequestBody Stock stock) {
-        stock.setId(id);
-        return stockService.createOrUpdateStock(stock);
-    }
-
 }

@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
 
-
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public abstract class User{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +18,8 @@ public abstract class User{
     @Column(nullable = false, length = 100)
     private String nom;
 
-    // @Column(nullable = false, length = 100)
-    // private String prenom;
+    @Column(nullable = false, length = 100)
+    private String prenom;
 
     @Column(nullable = false, unique = true, length = 150)
     private String email;
@@ -29,20 +27,30 @@ public abstract class User{
     @Column(nullable = false)
     private String password;
 
-    // @Column(nullable = false, updatable = false)
-    // private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-    // @Column(nullable = false)
-    // private LocalDateTime updatedAt;
+    @Column(unique = true)
+    private Long numeroLicence;
 
-    // @PrePersist
-    // private void onCreate() {
-    //     this.createdAt = LocalDateTime.now();
-    //     this.updatedAt = LocalDateTime.now();
-    // }
+    @Column(length = 100)
+    private String adminCode;
 
-    // @PreUpdate
-    // private void onUpdate() {
-    //     this.updatedAt = LocalDateTime.now();
-    // }
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    private void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

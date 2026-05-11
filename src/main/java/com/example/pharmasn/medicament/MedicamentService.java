@@ -3,8 +3,9 @@ package com.example.pharmasn.medicament;
 import java.util.List;
 import java.util.Optional;
 
-// import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import com.example.pharmasn.medicament.dtos.MedicamentDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -28,15 +29,26 @@ public class MedicamentService {
         return result;
     }
 
-    public Medicament createMedicament(Medicament medicament) {
+    public Medicament createMedicament(MedicamentDTO medicamentDTO) {
+        Medicament medicament = new Medicament();
+        medicament.setName(medicamentDTO.getName());
         return medicamentRepository.save(medicament);
     }
 
-    public void deleteMedicament(Long id) {
+
+    public List<Medicament> searchMedicaments(String query) {
+        return medicamentRepository.findByNameContainingIgnoreCase(query);
+    }
+
+    public void deleteMedicament(Long id){
+
         medicamentRepository.deleteById(id);
     }
 
-    public Medicament updateMedicament(Medicament medicament) {
+    public Medicament updateMedicament(Long id, MedicamentDTO medicamentDTO) {
+        Medicament medicament = medicamentRepository.findById(id)
+                .orElseThrow(() -> new MedicamentNotFoundException("Medicament with id " + id + " not found"));
+        medicament.setName(medicamentDTO.getName());
         return medicamentRepository.save(medicament);
     }
 
